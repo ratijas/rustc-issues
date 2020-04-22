@@ -1,0 +1,13 @@
+[package]
+name = "mac"
+version = "0.1.0"
+authors = ["ivan tkachenko <me@ratijas.tk>"]
+edition = "2018"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "1", features = ["full", "extra-traits"] }
+quote = "1"
+proc-macro2 = { version = "1", features = ["span-locations"] }
