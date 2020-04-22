@@ -90,11 +90,22 @@ I did a lot of experiments, and I think I found three issues at once:
     Regardless of fixed in rustc, syn/proc_macro2 crates should handle those empty groups gracefully AND uniformly.
     Probably, skip those blank groups altogether. It's no good that they handle a "blank group" and a "blank group which is followed by stuff" cases differently.
 
-# Version info
+### Meta
 
-    Rustc: rustc 1.42.0 (b8cedc004 2020-03-09)
-    Cargo: cargo 1.42.0 (86334295e 2020-01-31)
-    OS: Arch Linux, Kernel: x86_64 Linux 5.6.4-arch1-1
+`rustc --version --verbose`:
+
+```
+rustc 1.42.0 (b8cedc004 2020-03-09)
+binary: rustc
+commit-hash: b8cedc00407a4c56a3bda1ed605c6fc166655447
+commit-date: 2020-03-09
+host: x86_64-unknown-linux-gnu
+release: 1.42.0
+LLVM version: 9.0
+
+OS: Arch Linux
+Kernel: x86_64 Linux 5.6.4-arch1-1
+```
 
 [doc-vis]: https://doc.rust-lang.org/reference/macros-by-example.html#metavariables
 [ParseBuffer::is_empty]: https://docs.rs/syn/1.0.17/syn/parse/struct.ParseBuffer.html#method.is_empty

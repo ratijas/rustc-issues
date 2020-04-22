@@ -10,6 +10,7 @@ use syn::parse::{Parse, ParseStream, Result};
 
 mod with_ident;
 mod only_vis;
+mod q;
 
 // About the macros in separate modules,
 // try to experiment with them:
@@ -42,7 +43,6 @@ impl ToTokens for VisIdent {
         self.ident.to_tokens(tokens);
     }
 }
-
 
 
 // noinspection DuplicatedCode
@@ -136,4 +136,14 @@ fn main() {
     analyze_parse::<VisIdent>("blank vis (empty group), with ident", stream).ok();
     // Ok(VisIdent { vis: Inherited, ident: Ident(foobar) })
     // WTF?! blank group was an error just few lines above
+
+    // Roundtrip to get rid of empty group
+    let stream = reconstruct_blank_vis_token_stream();
+    let stream =
+        stream.to_string()
+            .parse::<proc_macro2::TokenStream>()
+            .expect("TAG_C");
+    analyze_parse::<Visibility>("roundtrip of blank vis (empty group)", stream).ok();
+    // Ok(Inherited)
+    // This hack works, now it parses.
 }

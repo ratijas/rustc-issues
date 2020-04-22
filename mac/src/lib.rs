@@ -43,7 +43,17 @@ fn analyze_parse<T>(stream: proc_macro2::TokenStream) -> Result<T>
 
 #[proc_macro]
 pub fn mac_internal(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    let input2 = proc_macro2::TokenStream::from(input);
+    /// Switch to use roundtrip through string hack
+    const USE_ROUNDTRIP: bool = false;
+
+    let input2: proc_macro2::TokenStream = if USE_ROUNDTRIP {
+        // roundtrip to get rid of empty groups
+        input.to_string()
+            .parse()
+            .expect("TAG_C")
+    } else {
+        input.into()
+    };
 
     let vis = analyze_parse::<Visibility>(input2).expect("TAG_B");
 
