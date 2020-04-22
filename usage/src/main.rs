@@ -11,13 +11,17 @@ use syn::parse::{Parse, ParseStream, Result};
 mod with_ident;
 mod only_vis;
 
-// play with it:
+// About the macros in separate modules,
+// try to experiment with them:
 //  - reorder the rules,
 //  - remove the one without visibility modifier,
 //  - remove all token trees except visibility modifier
 
 
-
+/// Just a custom parsable struct with something more than just visibility modifier.
+///
+/// Note that visibility modifier has `Visibility::Inherited` variant,
+/// which corresponds to "no visibility modifier at all", i.e. no tokens consumed.
 #[derive(Debug)]
 struct VisIdent {
     pub vis: Visibility,
@@ -76,7 +80,7 @@ fn append_some_ident(stream: &mut TokenStream) {
 }
 
 
-// reconstruction of the whole TokenStream
+// reconstruction the whole TokenStream
 
 fn reconstruct_empty_token_stream() -> TokenStream {
     TokenStream::new()
@@ -107,6 +111,8 @@ fn reconstruct_blank_vis_with_ident_token_stream() -> TokenStream {
     stream
 }
 
+
+// let's see, where it is going...
 
 fn main() {
     let stream = reconstruct_empty_token_stream();
