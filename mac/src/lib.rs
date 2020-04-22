@@ -27,7 +27,9 @@ impl ToTokens for OnlyVis {
 }
 
 // noinspection DuplicatedCode
-fn analyze_parse<T: Parse + std::fmt::Debug>(stream: proc_macro2::TokenStream) -> Result<T> {
+fn analyze_parse<T>(stream: proc_macro2::TokenStream) -> Result<T>
+    where T: syn::parse::Parse + std::fmt::Debug
+{
     println!("New macro invocation");
     println!("====================");
     println!("string:  {:?}", stream.to_string());

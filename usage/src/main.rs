@@ -83,9 +83,9 @@ fn reconstruct_empty_token_stream() -> TokenStream {
 }
 
 fn reconstruct_blank_vis_token_stream() -> TokenStream {
-    let mut blank_stream = reconstruct_empty_token_stream();
-    append_blank_vis(&mut blank_stream);
-    blank_stream
+    let mut stream = reconstruct_empty_token_stream();
+    append_blank_vis(&mut stream);
+    stream
 }
 
 fn reconstruct_ident_only_token_stream() -> TokenStream {
@@ -109,25 +109,25 @@ fn reconstruct_blank_vis_with_ident_token_stream() -> TokenStream {
 
 
 fn main() {
-    let empty = reconstruct_empty_token_stream();
-    analyze_parse::<Visibility>("empty stream", empty).ok();
+    let stream = reconstruct_empty_token_stream();
+    analyze_parse::<Visibility>("empty stream", stream).ok();
     // Ok(Inherited)
 
-    let blank = reconstruct_blank_vis_token_stream();
-    analyze_parse::<Visibility>("blank vis (empty group)", blank).ok();
+    let stream = reconstruct_blank_vis_token_stream();
+    analyze_parse::<Visibility>("blank vis (empty group)", stream).ok();
     // Err(Error("unexpected token"))
     // WTF is blank group
 
-    let ident = reconstruct_ident_only_token_stream();
-    analyze_parse::<VisIdent>("no vis, only ident", ident).ok();
+    let stream = reconstruct_ident_only_token_stream();
+    analyze_parse::<VisIdent>("no vis, only ident", stream).ok();
     // Ok(VisIdent { vis: Inherited, ident: Ident(foobar) })
 
-    let vis_ident = reconstruct_vis_ident_token_stream();
-    analyze_parse::<VisIdent>("pub vis, with ident", vis_ident).ok();
+    let stream = reconstruct_vis_ident_token_stream();
+    analyze_parse::<VisIdent>("pub vis, with ident", stream).ok();
     // Ok(VisIdent { vis: Restricted(..), ident: Ident(foobar) })
 
-    let blank = reconstruct_blank_vis_with_ident_token_stream();
-    analyze_parse::<VisIdent>("blank vis (empty group), with ident", blank).ok();
+    let stream = reconstruct_blank_vis_with_ident_token_stream();
+    analyze_parse::<VisIdent>("blank vis (empty group), with ident", stream).ok();
     // Ok(VisIdent { vis: Inherited, ident: Ident(foobar) })
     // WTF?! blank group was an error just few lines above
 }
