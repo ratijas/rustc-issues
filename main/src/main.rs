@@ -2,8 +2,7 @@ use libloading::*;
 use log::*;
 
 fn main() {
-    simple_logger::SimpleLogger::new().init().unwrap();
-    log::set_max_level(LevelFilter::Info);
+    ffi_log::ExternCLog::init().unwrap();
 
     info!("Hello, world!");
 

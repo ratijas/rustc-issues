@@ -2,4 +2,6 @@
 members = [
     "dynlib",
     "main",
+    "ffi-log",
+    "my-cdylib-log",
 ]

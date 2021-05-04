@@ -1,0 +1,17 @@
+[package]
+name = "my-cdylib-log"
+version = "0.1.0"
+authors = ["ivan tkachenko <me@ratijas.tk>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+name = "my_cdylib_log"
+
+[dependencies]
+log = "0.4"
+ffi-log = { path = "../ffi-log" }
+
+[dependencies.simple_logger]
+default-features = false
+version = "1"
