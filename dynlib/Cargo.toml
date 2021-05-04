@@ -1,0 +1,11 @@
+[package]
+name = "dynlib"
+version = "0.1.0"
+authors = ["Xophe <christophe.dousson@orange.com>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+log = { version="0.4" }
